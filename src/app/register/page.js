@@ -2,7 +2,7 @@
 
 import InputComponent from "@/components/FormElement/InputComponent";
 import SelectComponent from "@/components/FormElement/SelectComponent";
-import { registerNewUsre } from "@/service/register";
+import { registerNewUser } from "@/service/register";
 import { registrationFormControls } from "@/utils";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,7 +12,7 @@ const initFormData = {
     name: "",
     email: "",
     password: "",
-    role: "",
+    role: "customer",
 };
 const register = () => {
     const [formData, setFormData] = useState(initFormData);
@@ -28,7 +28,7 @@ const register = () => {
             : false;
     };
     const handleRegister = async () => {
-        const data = await registerNewUsre(formData);
+        const data = await registerNewUser(formData);
         console.log("data", data);
     };
     console.log(formData);

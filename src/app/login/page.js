@@ -3,9 +3,44 @@
 import Link from "next/link";
 import InputComponent from "@/components/FormElement/InputComponent";
 import { loginFormControls } from "@/utils";
+import { useContext, useEffect, useState } from "react";
+import { login } from "@/service/login";
+import { GlobalContext } from "@/context";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
-const isLogin = false;
+const initFormData = {
+    email: "",
+    password: "",
+};
 const Login = () => {
+    const router = useRouter();
+    const [formData, setFormData] = useState(initFormData);
+    const { isAuthUer, setIsAuthUer, user, setUser } =
+        useContext(GlobalContext);
+    const isValid = () => {
+        return formData.email &&
+            formData.email.trim() !== "" &&
+            formData.password &&
+            formData.password.trim() !== ""
+            ? true
+            : false;
+    };
+    const handleLogin = async () => {
+        const data = await login(formData);
+        if (data.success) {
+            setIsAuthUer(true);
+            setUser(data?.finalData?.user);
+            setFormData(initFormData);
+            Cookies.set("token", data?.finalData?.token);
+            localStorage.setItem("user", JSON.stringify(data?.finalData?.user));
+        } else {
+            setIsAuthUer(false);
+        }
+    };
+    useEffect(() => {
+        if (isAuthUer) router.push("/");
+    }, [isAuthUer]);
     return (
         <div className="bg-white relative">
             <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row">
@@ -25,10 +60,22 @@ const Login = () => {
                                                 controlItem.placeholder
                                             }
                                             lable={controlItem.label}
+                                            value={formData[controlItem.id]}
+                                            onChange={(e) => {
+                                                setFormData({
+                                                    ...formData,
+                                                    [controlItem.id]:
+                                                        e.target.value,
+                                                });
+                                            }}
                                         />
                                     ) : null
                                 )}
-                                <button className="inline-flex w-full justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide">
+                                <button
+                                    disabled={!isValid()}
+                                    onClick={handleLogin}
+                                    className="disabled:bg-[#ccc] inline-flex w-full justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
+                                >
                                     Login
                                 </button>
                                 <div className="flex gap-2 justify-end items-center text-sm">
