@@ -1,11 +1,37 @@
 "use client";
 
-import InputComponent from "../components/FormElement/InputComponent";
-import SelectComponent from "../components/FormElement/SelectComponent";
-import { registrationFormControls } from "../utils";
+import InputComponent from "@/components/FormElement/InputComponent";
+import SelectComponent from "@/components/FormElement/SelectComponent";
+import { registerNewUsre } from "@/service/register";
+import { registrationFormControls } from "@/utils";
+import Link from "next/link";
+import { useState } from "react";
 
 const isRegister = false;
+const initFormData = {
+    name: "",
+    email: "",
+    password: "",
+    role: "",
+};
 const register = () => {
+    const [formData, setFormData] = useState(initFormData);
+    const isFormVaid = () => {
+        return formData &&
+            formData.name &&
+            formData.name.trim() !== "" &&
+            formData.email &&
+            formData.email.trim !== "" &&
+            formData.password &&
+            formData.password.trim() !== ""
+            ? true
+            : false;
+    };
+    const handleRegister = async () => {
+        const data = await registerNewUsre(formData);
+        console.log("data", data);
+    };
+    console.log(formData);
     return (
         <div className="bg-white relative">
             <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-8 mr-auto xl:px-5 lg:flex-row">
@@ -34,6 +60,16 @@ const register = () => {
                                                         controlItem.placeholder
                                                     }
                                                     lable={controlItem.label}
+                                                    onChange={(e) => {
+                                                        setFormData({
+                                                            ...formData,
+                                                            [controlItem.id]:
+                                                                e.target.value,
+                                                        });
+                                                    }}
+                                                    value={
+                                                        formData[controlItem.id]
+                                                    }
                                                 />
                                             ) : controlItem.componentType ===
                                               "select" ? (
@@ -41,12 +77,35 @@ const register = () => {
                                                     key={controlItem.id}
                                                     option={controlItem.options}
                                                     lable={controlItem.label}
+                                                    onChange={(e) => {
+                                                        setFormData({
+                                                            ...formData,
+                                                            [controlItem.id]:
+                                                                e.target.value,
+                                                        });
+                                                    }}
+                                                    value={
+                                                        formData[controlItem.id]
+                                                    }
                                                 />
                                             ) : null
                                     )}
-                                    <button className="inline-flex w-full justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide">
+                                    <button
+                                        disabled={!isFormVaid()}
+                                        className="disabled:bg-[#aaa] inline-flex w-full justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
+                                        onClick={handleRegister}
+                                    >
                                         register
                                     </button>
+                                    <div className="flex gap-2 justify-end items-center text-sm">
+                                        <span>You have an account ?</span>
+                                        <Link
+                                            href="/login"
+                                            className="text-red-600 underline"
+                                        >
+                                            login
+                                        </Link>
+                                    </div>
                                 </div>
                             )}
                         </div>

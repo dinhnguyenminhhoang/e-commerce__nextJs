@@ -1,10 +1,10 @@
 "use client";
 
-import { GlobalContext } from "@/app/context";
-import { adminNavOptions, navOptions } from "@/app/utils";
 import Link from "next/link";
 import { Fragment, useContext } from "react";
 import CommonModal from "../CommonModal";
+import { adminNavOptions, navOptions } from "@/utils";
+import { GlobalContext } from "@/context";
 
 const isAdminView = false;
 const isAthuUser = true;
