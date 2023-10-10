@@ -16,7 +16,9 @@ export default function RootLayout({ children }) {
             <body className={inter.className}>
                 <GlobalSate>
                     <Navbar />
-                    <main>{children}</main>
+                    <main className="flex max-h-screen flex-col mt-[82px]">
+                        {children}
+                    </main>
                 </GlobalSate>
             </body>
         </html>

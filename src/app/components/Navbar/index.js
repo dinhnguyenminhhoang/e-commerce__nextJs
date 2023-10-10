@@ -1,7 +1,7 @@
 "use client";
 
 import { GlobalContext } from "@/app/context";
-import { adminNavOptions, navOptions, styles } from "@/app/utils";
+import { adminNavOptions, navOptions } from "@/app/utils";
 import Link from "next/link";
 import { Fragment, useContext } from "react";
 import CommonModal from "../CommonModal";
@@ -60,27 +60,33 @@ const Navbar = () => {
                     <div className="flex gap-2 md:order-2">
                         {!isAdminView && isAthuUser ? (
                             <Fragment>
-                                <button className={styles.button}>
+                                <button className="mt-1.5 inline-block bg-black px-5 py-3 text-sm font-medium upprcase tracking-wide text-white rounded">
                                     Account
                                 </button>
-                                <button className={styles.button}>cart</button>
+                                <button className="mt-1.5 inline-block bg-black px-5 py-3 text-sm font-medium upprcase tracking-wide text-white rounded">
+                                    cart
+                                </button>
                             </Fragment>
                         ) : null}
                         {user?.role == "admin" ? (
                             isAdminView ? (
-                                <button className={styles.button}>
+                                <button className="mt-1.5 inline-block bg-black px-5 py-3 text-sm font-medium upprcase tracking-wide text-white rounded">
                                     Client view
                                 </button>
                             ) : (
-                                <button className={styles.button}>
+                                <button className="mt-1.5 inline-block bg-black px-5 py-3 text-sm font-medium upprcase tracking-wide text-white rounded">
                                     Admin view
                                 </button>
                             )
                         ) : null}
                         {isAthuUser ? (
-                            <button className={styles.button}>Logout</button>
+                            <button className="mt-1.5 inline-block bg-black px-5 py-3 text-sm font-medium upprcase tracking-wide text-white rounded">
+                                Logout
+                            </button>
                         ) : (
-                            <button className={styles.button}>Login</button>
+                            <button className="mt-1.5 inline-block bg-black px-5 py-3 text-sm font-medium upprcase tracking-wide text-white rounded">
+                                Login
+                            </button>
                         )}
                         <button
                             data-collapse-toggle="navbar-sticky"
