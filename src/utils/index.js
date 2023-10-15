@@ -63,7 +63,7 @@ export const registrationFormControls = [
     },
     {
         id: "role",
-        type: "",
+        type: "text",
         placeholder: "",
         label: "Role",
         componentType: "select",
@@ -189,16 +189,16 @@ export const AvailableSizes = [
 ];
 
 export const firebaseConfig = {
-    apiKey: "API_KEY",
-    authDomain: "AUTH_DOMAIN",
-    projectId: "PROJECT_ID",
-    storageBucket: "STROAGE_BUCKET",
-    messagingSenderId: "MESSAGING_SENDER_ID",
-    appId: "APP_ID",
-    measurementId: "MEASUREMENT_ID",
+    apiKey: "AIzaSyDrU1ac0MCPa-MLqNZkQndmWgdQ-95N48k",
+    authDomain: "next-js-ecommerce-a8235.firebaseapp.com",
+    projectId: "next-js-ecommerce-a8235",
+    storageBucket: "next-js-ecommerce-a8235.appspot.com",
+    messagingSenderId: "933193521236",
+    appId: "1:933193521236:web:4b2702e78a6ed1b93db5c1",
+    measurementId: "G-MRRM4LWQ8G",
 };
 
-export const firebaseStroageURL = "YOUR_FIREBASE_STROAGE_URL";
+export const firebaseStroageURL = "gs://next-js-ecommerce-a8235.appspot.com";
 
 export const addNewAddressFormControls = [
     {
