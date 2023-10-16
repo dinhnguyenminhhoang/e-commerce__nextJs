@@ -16,12 +16,12 @@ import {
 import InputComponent from "@/components/FormElements/InputComponent";
 import SelectComponent from "@/components/FormElements/SelectComponent";
 import TileComponent from "@/components/TileComponent";
-import { addNewProduct } from "@/service/product";
+import { addNewProduct, updateAProduct } from "@/service/product";
 import { GlobalContext } from "@/context";
 import { toast } from "react-toastify";
 import Notification from "@/components/Notification";
 import ComponentLevelLoader from "@/components/Loader/componentlevel";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app, firebaseStroageURL);
@@ -70,8 +70,12 @@ const initialFormData = {
 const AdminAddNewProduct = () => {
     const [formData, setFormData] = useState(initialFormData);
     const [fullScreen, setFullScreen] = useState(false);
-    const { componentLevelLoader, setComponentLevelLoader } =
-        useContext(GlobalContext);
+    const {
+        componentLevelLoader,
+        setComponentLevelLoader,
+        setCurrentUpdatedProduct,
+        currentUpdatedProduct,
+    } = useContext(GlobalContext);
     const router = useRouter();
     async function handleImage(event) {
         const extractImageUrl = await helperForUPloadingImageToFirebase(
@@ -125,6 +129,28 @@ const AdminAddNewProduct = () => {
         }, 5000);
         () => clearTimeout(checkImg);
     });
+    // update
+    useEffect(() => {
+        if (currentUpdatedProduct) setFormData(currentUpdatedProduct);
+    }, [currentUpdatedProduct]);
+    const handleUpdateProduct = async () => {
+        setComponentLevelLoader({ loading: true, id: "" });
+
+        const res = await updateAProduct(formData);
+        if (res.success) {
+            setComponentLevelLoader({ loading: false, id: "" });
+            toast.success(res.message), { position: toast.POSITION.TOP_RIGHT };
+            setFormData(initialFormData);
+            setTimeout(() => {
+                router.push("/admin-view/all-products");
+            }, 1000);
+            setCurrentUpdatedProduct(null);
+        } else {
+            setComponentLevelLoader({ loading: true, id: "" });
+            toast.error(res.message), { position: toast.POSITION.TOP_RIGHT };
+            setFormData(initialFormData);
+        }
+    };
     return (
         <div className="w-full mt-5 mr-0 mb-0 ml-0 relative">
             <div className="flex flex-col items-start justify-start p-10 bg-white shadow-2xl rounded-xl relative">
@@ -190,24 +216,45 @@ const AdminAddNewProduct = () => {
                             />
                         ) : null
                     )}
-                    <button
-                        onClick={handleAddProduct}
-                        className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-white font-medium uppercase tracking-wide"
-                    >
-                        {componentLevelLoader &&
-                        componentLevelLoader.loading ? (
-                            <ComponentLevelLoader
-                                text={"Adding In"}
-                                color={"#ffffff"}
-                                loading={
-                                    componentLevelLoader &&
-                                    componentLevelLoader.loading
-                                }
-                            />
-                        ) : (
-                            "add product"
-                        )}
-                    </button>
+                    {currentUpdatedProduct ? (
+                        <button
+                            onClick={handleUpdateProduct}
+                            className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-white font-medium uppercase tracking-wide"
+                        >
+                            {componentLevelLoader &&
+                            componentLevelLoader.loading ? (
+                                <ComponentLevelLoader
+                                    text={"Update In"}
+                                    color={"#ffffff"}
+                                    loading={
+                                        componentLevelLoader &&
+                                        componentLevelLoader.loading
+                                    }
+                                />
+                            ) : (
+                                "Update product"
+                            )}
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleAddProduct}
+                            className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-white font-medium uppercase tracking-wide"
+                        >
+                            {componentLevelLoader &&
+                            componentLevelLoader.loading ? (
+                                <ComponentLevelLoader
+                                    text={"Adding In"}
+                                    color={"#ffffff"}
+                                    loading={
+                                        componentLevelLoader &&
+                                        componentLevelLoader.loading
+                                    }
+                                />
+                            ) : (
+                                "add product"
+                            )}
+                        </button>
+                    )}
                 </div>
             </div>
             <Notification />

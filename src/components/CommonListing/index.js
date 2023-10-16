@@ -1,9 +1,17 @@
 "use client";
 
+import { deleteAProduct } from "@/service/product";
 import ProductButtons from "./ProductButtons";
 import ProdcutTile from "./ProductTile";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Notification from "../Notification";
 
 const CommonListing = ({ data }) => {
+    const router = useRouter();
+    useEffect(() => {
+        router.refresh();
+    }, []);
     return (
         <section className="bg-white py-12 sm:py-6">
             <div className="mx-auto max-w-screen-xl px-4 ms:px-6 lg:px-8">
@@ -20,6 +28,7 @@ const CommonListing = ({ data }) => {
                         ))}
                 </div>
             </div>
+            <Notification />
         </section>
     );
 };
