@@ -5,13 +5,10 @@ import { Fragment, useContext } from "react";
 import CommonModal from "../CommonModal";
 import { adminNavOptions, navOptions } from "@/utils";
 import { GlobalContext } from "@/context";
+import Cookies from "js-cookie";
+import { usePathname, useRouter } from "next/navigation";
 
-const isAdminView = false;
-const isAthuUser = true;
-const user = {
-    role: "admin",
-};
-const NavItems = ({ isModalView = false }) => {
+const NavItems = ({ isModalView = false, isAdminView }) => {
     return (
         <div
             className={`justify-between items-center w-full md:flex md:w-auto ${
@@ -47,7 +44,17 @@ const NavItems = ({ isModalView = false }) => {
 };
 const Navbar = () => {
     const { showNavModal, setShowNavModal } = useContext(GlobalContext);
-
+    const { isAuthUser, setIsAuthUser, user, setUser } =
+        useContext(GlobalContext);
+    const pathName = usePathname();
+    const router = useRouter();
+    const handleLogout = () => {
+        setIsAuthUser(false);
+        setUser(null);
+        Cookies.remove("token");
+        localStorage.clear();
+    };
+    const isAdminView = pathName.includes("admin-view");
     return (
         <>
             <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-100">
