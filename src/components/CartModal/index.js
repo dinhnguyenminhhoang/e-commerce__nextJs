@@ -133,6 +133,10 @@ const CartModal = () => {
                     <button
                         type="button"
                         className="mt-1.5 w-full inline-block bg-black text-white px-5 py-3 text-sm font-medium uppercase tracking-wide"
+                        onClick={() => {
+                            setShowCartModal(false);
+                            router.push("/cart");
+                        }}
                     >
                         Go To Cart
                     </button>
