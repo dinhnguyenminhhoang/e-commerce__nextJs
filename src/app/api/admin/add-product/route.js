@@ -1,4 +1,5 @@
 import connectToDB from "@/database";
+import AuthUser from "@/middleware/AuthUser";
 import Product from "@/models/product";
 import Joi from "joi";
 import { NextResponse } from "next/server";
@@ -19,8 +20,8 @@ export const dynamic = "force-dynamic";
 export async function POST(req) {
     try {
         await connectToDB();
-        const user = "adim";
-        if (user === "adim") {
+        const isAuthUser = await AuthUser(req);
+        if (isAuthUser?.role === "admin") {
             const extracData = await req.json();
             const {
                 name,
