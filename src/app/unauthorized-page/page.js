@@ -1,5 +1,4 @@
-unauthorized - page;
-("use client");
+"use client";
 
 export default function Unauthorized() {
     return (
