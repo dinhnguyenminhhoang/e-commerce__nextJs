@@ -10,31 +10,38 @@ export async function GET(req) {
         await connectToDB();
         const isAuthUser = await AuthUser(req);
 
-        if (isAuthUser?.role === "admin") {
-            const getAllOrders = await Order.find({})
-                .populate("orderItems.product")
-                .populate("user");
+        if (isAuthUser) {
+            const { searchParams } = new URL(req.url);
+            const id = searchParams.get("id");
 
-            if (getAllOrders) {
+            if (!id)
+                return NextResponse.json({
+                    success: false,
+                    message: "Product ID is required",
+                });
+
+            const extractOrderDetails = await Order.findById(id).populate(
+                "orderItems.product"
+            );
+
+            if (extractOrderDetails) {
                 return NextResponse.json({
                     success: true,
-                    data: getAllOrders,
+                    data: extractOrderDetails,
                 });
             } else {
                 return NextResponse.json({
                     success: false,
-                    message:
-                        "failed to fetch the orders ! Please try again after some time.",
+                    message: "Failed to get order details ! Please try again",
                 });
             }
         } else {
             return NextResponse.json({
                 success: false,
-                message: "You are not autorized !",
+                message: "You are not authticated",
             });
         }
     } catch (e) {
-        console.log(e);
         return NextResponse.json({
             success: false,
             message: "Something went wrong ! Please try again later",
