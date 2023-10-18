@@ -52,4 +52,5 @@ Dự án này là một dự án cá nhân được tạo ra với mục đích 
 
 ## Liên Hệ
 
-Nếu bạn cần hỗ trợ hoặc có câu hỏi, vui lòng liên hệ chúng tôi qua [dinhnguyenminhhoang28@example.com].
+Nếu bạn cần hỗ trợ hoặc có câu hỏi, vui lòng liên hệ chúng tôi qua dinhnguyenminhhoang28@gmail.com/0337972340
+
