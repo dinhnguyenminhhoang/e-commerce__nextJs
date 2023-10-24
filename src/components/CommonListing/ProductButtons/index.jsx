@@ -82,7 +82,7 @@ const ProductButtons = ({ item }) => {
         <>
             <button
                 onClick={() => handleAddToCart(item)}
-                className="text-white mt-1.5 flex w-full justify-center bg-black px-5 py-3  text-xs font-medium uppercase tracking-wide"
+                className="text-white mt-1.5 flex w-full justify-center px-5 py-3  text-xs font-medium uppercase tracking-wide"
             >
                 {componentLevelLoader &&
                 componentLevelLoader.loading &&

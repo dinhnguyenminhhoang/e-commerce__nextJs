@@ -1,8 +1,12 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import InputComponent from "@/components/FormElements/InputComponent";
+import ComponentLevelLoader from "@/components/Loader/componentlevel";
+import Notification from "@/components/Notification";
+import { GlobalContext } from "@/context";
+import { addNewPoster } from "@/service/poster";
+import { updateAProduct } from "@/service/product";
 import {
-    AvailableSizes,
-    adminAddProductformControls,
+    adminAddPosterformControls,
     firebaseConfig,
     firebaseStroageURL,
 } from "@/utils";
@@ -13,15 +17,9 @@ import {
     ref,
     uploadBytesResumable,
 } from "firebase/storage";
-import InputComponent from "@/components/FormElements/InputComponent";
-import SelectComponent from "@/components/FormElements/SelectComponent";
-import TileComponent from "@/components/TileComponent";
-import { addNewProduct, updateAProduct } from "@/service/product";
-import { GlobalContext } from "@/context";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Notification from "@/components/Notification";
-import ComponentLevelLoader from "@/components/Loader/componentlevel";
-import { usePathname, useRouter } from "next/navigation";
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app, firebaseStroageURL);
@@ -57,15 +55,8 @@ async function helperForUPloadingImageToFirebase(file) {
 
 const initialFormData = {
     name: "",
-    price: 0,
     description: "",
-    category: "men",
-    sizes: [],
-    deliveryInfo: "",
-    onSale: "no",
     imageUrl: "",
-    thumbnailUrl: "",
-    priceDrop: 0,
 };
 
 const AdminAddNewProduct = () => {
@@ -90,36 +81,10 @@ const AdminAddNewProduct = () => {
             });
         }
     }
-    async function handleThumb(event) {
-        const extractImageUrl = await helperForUPloadingImageToFirebase(
-            event.target.files[0]
-        );
-
-        if (extractImageUrl !== "") {
-            setFormData({
-                ...formData,
-                thumbnailUrl: extractImageUrl,
-            });
-        }
-    }
-    const handleTileClick = (getCurrentitem) => {
-        let copySizes = [...formData.sizes];
-        const index = copySizes.findIndex(
-            (item) => item.id === getCurrentitem.id
-        );
-        if (index === -1) {
-            copySizes.push(getCurrentitem);
-        } else {
-            copySizes = copySizes.filter(
-                (item) => item.id !== getCurrentitem.id
-            );
-        }
-        setFormData({ ...formData, sizes: copySizes });
-    };
-    const handleAddProduct = async () => {
+    const handleAddPoster = async () => {
         setComponentLevelLoader({ loading: true, id: "" });
 
-        const res = await addNewProduct(formData);
+        const res = await addNewPoster(formData);
         if (res.success) {
             setComponentLevelLoader({ loading: false, id: "" });
             toast.success(res.message), { position: toast.POSITION.TOP_RIGHT };
@@ -182,16 +147,8 @@ const AdminAddNewProduct = () => {
                                 onChange={handleImage}
                             />
                         </div>
-                        <div className="flex flex-col gap-2 items-start">
-                            <span>thumbnailUrl</span>
-                            <input
-                                accept="image/*"
-                                max="100000"
-                                type="file"
-                                onChange={handleThumb}
-                            />
-                        </div>
-                        {formData.imageUrl && formData.thumbnailUrl && (
+
+                        {formData.imageUrl && (
                             <div className="flex gap-2">
                                 <img
                                     src={formData.imageUrl}
@@ -216,42 +173,22 @@ const AdminAddNewProduct = () => {
                             </div>
                         )}
                     </div>
-                    <div className="flex gap-2 flex-col">
-                        <lable>Available sizes</lable>
-                        <TileComponent
-                            selected={formData.sizes}
-                            onClick={handleTileClick}
-                            data={AvailableSizes}
-                        />
-                    </div>
-                    {adminAddProductformControls.map((controlItem) =>
-                        controlItem.componentType === "input" ? (
-                            <InputComponent
-                                key={controlItem.id}
-                                placeholder={controlItem.placeholder}
-                                lable={controlItem.label}
-                                value={formData[controlItem.id]}
-                                onChange={(e) => {
-                                    setFormData({
-                                        ...formData,
-                                        [controlItem.id]: e.target.value,
-                                    });
-                                }}
-                            />
-                        ) : controlItem.componentType === "select" ? (
-                            <SelectComponent
-                                key={controlItem.id}
-                                options={controlItem.options}
-                                label={controlItem.label}
-                                value={formData[controlItem.id]}
-                                onChange={(e) => {
-                                    setFormData({
-                                        ...formData,
-                                        [controlItem.id]: e.target.value,
-                                    });
-                                }}
-                            />
-                        ) : null
+                    {adminAddPosterformControls.map(
+                        (controlItem) =>
+                            controlItem.componentType === "input" && (
+                                <InputComponent
+                                    key={controlItem.id}
+                                    placeholder={controlItem.placeholder}
+                                    lable={controlItem.label}
+                                    value={formData[controlItem.id]}
+                                    onChange={(e) => {
+                                        setFormData({
+                                            ...formData,
+                                            [controlItem.id]: e.target.value,
+                                        });
+                                    }}
+                                />
+                            )
                     )}
                     {currentUpdatedProduct ? (
                         <button
@@ -269,12 +206,12 @@ const AdminAddNewProduct = () => {
                                     }
                                 />
                             ) : (
-                                "Update product"
+                                "Update Poster"
                             )}
                         </button>
                     ) : (
                         <button
-                            onClick={handleAddProduct}
+                            onClick={handleAddPoster}
                             className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-white font-medium uppercase tracking-wide"
                         >
                             {componentLevelLoader &&
@@ -288,7 +225,7 @@ const AdminAddNewProduct = () => {
                                     }
                                 />
                             ) : (
-                                "add product"
+                                "add poster"
                             )}
                         </button>
                     )}

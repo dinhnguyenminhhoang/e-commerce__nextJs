@@ -1,8 +1,8 @@
-import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import GlobalSate from "@/context";
-
+import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,9 +16,10 @@ export default function RootLayout({ children }) {
             <body className={inter.className}>
                 <GlobalSate>
                     <Navbar />
-                    <main className="flex max-h-screen flex-col mt-[82px]">
+                    <main className="min-h-screen mt-[86px] md:container md:mx-auto mx-4 sm:mx-8 xl:w-3/4">
                         {children}
                     </main>
+                    <Footer />
                 </GlobalSate>
             </body>
         </html>

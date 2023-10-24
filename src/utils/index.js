@@ -33,9 +33,19 @@ export const adminNavOptions = [
         path: "/admin-view/all-products",
     },
     {
+        id: "adminListing",
+        label: "Manage All poster",
+        path: "/admin-view/all-posters",
+    },
+    {
         id: "adminNewProduct",
         label: "Add New Product",
         path: "/admin-view/add-product",
+    },
+    {
+        id: "adminNewPoster",
+        label: "Add New Poster",
+        path: "/admin-view/add-poster",
     },
 ];
 
@@ -172,7 +182,22 @@ export const adminAddProductformControls = [
         componentType: "input",
     },
 ];
-
+export const adminAddPosterformControls = [
+    {
+        id: "name",
+        type: "text",
+        placeholder: "Enter name",
+        label: "Name",
+        componentType: "input",
+    },
+    {
+        id: "description",
+        type: "text",
+        placeholder: "Enter description",
+        label: "Description",
+        componentType: "input",
+    },
+];
 export const AvailableSizes = [
     {
         id: "s",

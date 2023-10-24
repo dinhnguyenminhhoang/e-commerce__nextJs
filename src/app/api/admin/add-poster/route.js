@@ -1,20 +1,13 @@
 import connectToDB from "@/database";
 import AuthUser from "@/middleware/AuthUser";
-import Product from "@/models/product";
+import Poster from "@/models/poster";
 import Joi from "joi";
 import { NextResponse } from "next/server";
 
-const AddnNewProductSchema = Joi.object({
+const AddnNewPosterSchema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
-    price: Joi.number().required(),
-    category: Joi.string().required(),
-    sizes: Joi.array().required(),
-    deliveryInfo: Joi.string().required(),
-    onSale: Joi.string().required(),
-    priceDrop: Joi.number().required(),
     imageUrl: Joi.string().required(),
-    thumbnailUrl: Joi.string().required(),
 });
 export const dynamic = "force-dynamic";
 
@@ -24,30 +17,11 @@ export async function POST(req) {
         const isAuthUser = await AuthUser(req);
         if (isAuthUser?.role === "admin") {
             const extracData = await req.json();
-            const {
+            const { name, description, imageUrl } = extracData;
+            const { err } = AddnNewPosterSchema.validate({
                 name,
                 description,
-                price,
                 imageUrl,
-                category,
-                sizes,
-                deliveryInfo,
-                onSale,
-                priceDrop,
-                thumbnailUrl,
-            } = extracData;
-            console.log(extracData);
-            const { err } = AddnNewProductSchema.validate({
-                name,
-                description,
-                price,
-                imageUrl,
-                category,
-                sizes,
-                deliveryInfo,
-                onSale,
-                priceDrop,
-                thumbnailUrl,
             });
             if (err) {
                 return NextResponse.json({
@@ -55,16 +29,16 @@ export async function POST(req) {
                     message: err.detail[0].message,
                 });
             }
-            const newlyCreatedProduct = await Product.create(extracData);
-            if (newlyCreatedProduct) {
+            const newlyCreatedPoster = await Poster.create(extracData);
+            if (newlyCreatedPoster) {
                 return NextResponse.json({
                     success: true,
-                    message: "Product created successfully",
+                    message: "Poster created successfully",
                 });
             } else {
                 return NextResponse.json({
                     success: false,
-                    message: "Failed to create product",
+                    message: "Failed to create Poster",
                 });
             }
         } else {

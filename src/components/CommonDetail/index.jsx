@@ -2,10 +2,14 @@
 
 import { GlobalContext } from "@/context";
 import { addToCart } from "@/service/cart";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import ComponentLevelLoader from "../Loader/componentlevel";
 import Notification from "../Notification";
+import { zoomImg } from "@/utils/zoomImg";
+import { productByCategory } from "@/service/product";
+import HotSaleSlide from "../slide";
+import Product from "../CommonListing/Product";
 
 const CommonDetail = ({ item }) => {
     const {
@@ -14,6 +18,21 @@ const CommonDetail = ({ item }) => {
         componentLevelLoader,
         user,
     } = useContext(GlobalContext);
+    const [imgShown, setImgShown] = useState(true);
+    const [similarProducts, setSimilarProducts] = useState([]);
+    const imgRef = useRef();
+    const mirrorRef = useRef();
+    useEffect(() => {
+        if (imgRef.current && mirrorRef.current)
+            zoomImg(imgRef.current, 2, mirrorRef.current);
+    }, [imgRef, mirrorRef]);
+    const getProductSimilar = async () => {
+        const res = await productByCategory(item.category);
+        if (res.success) setSimilarProducts(res.data);
+    };
+    useEffect(() => {
+        getProductSimilar();
+    }, []);
     const handleAddCart = async (cartItem) => {
         setComponentLevelLoader({ loading: true, id: cartItem._id });
         const res = await addToCart({
@@ -31,18 +50,44 @@ const CommonDetail = ({ item }) => {
         }
     };
     return (
-        <section className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-            <div className="container mx-auto px-4">
-                <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
+        <section className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
+            <div className="container mx-auto">
+                <div className="lg:col-gap-12 xl:col-gap-16 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
                     <div className="lg:col-span-3 lg:row-end-1">
                         <div className="lg:flex lg:items-start">
                             <div className="lg:order-2 lg:ml-5">
                                 <div className="max-w-xl overflow-hidden rounded-lg">
                                     <img
-                                        src={item?.imageUrl}
-                                        className="h-full w-full max-w-full object-cover"
+                                        ref={imgRef}
+                                        src={
+                                            imgShown
+                                                ? item?.imageUrl
+                                                : item?.thumbnailUrl
+                                        }
+                                        className="h-full w-full max-w-full object-cover cursor-zoom-in"
                                         alt="product detail"
                                     />
+                                    <div
+                                        ref={mirrorRef}
+                                        className={`
+                                        hidden
+                                          border
+                                          z-10
+                                          w-[150px] h-[150px]
+                                        rounded-full fixed -translate-x-1/2 -translate-y-1/2 pointer-events-none object-cover`}
+                                        style={{
+                                            backgroundImage: `url(${
+                                                imgShown
+                                                    ? item?.imageUrl
+                                                    : item?.thumbnailUrl
+                                            })`,
+                                            imageRendering: "crisp-edges",
+                                            imageRendering:
+                                                "-webkit-crisp-edges",
+                                            imageRendering:
+                                                "-webkit-optimize-contrast",
+                                        }}
+                                    ></div>
                                 </div>
                             </div>
                             <div className="mt-2 w-full lg:order-1 lg:w-32 lg:flex-shrink-0">
@@ -52,18 +97,15 @@ const CommonDetail = ({ item }) => {
                                         className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-100 text-center"
                                     >
                                         <img
-                                            src={item?.imageUrl}
-                                            className="h-full w-full object-cover"
-                                            alt="product detail"
-                                        />
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="flex-0 aspect-square mb-3 h-20 overflow-hidden rounded-lg border-2 border-gray-100 text-center"
-                                    >
-                                        <img
-                                            src={item?.imageUrl}
-                                            className="h-full w-full object-cover"
+                                            onClick={() => {
+                                                setImgShown(!imgShown);
+                                            }}
+                                            src={
+                                                imgShown
+                                                    ? item?.thumbnailUrl
+                                                    : item?.imageUrl
+                                            }
+                                            className="h-full w-full object-cover object-top"
                                             alt="product detail"
                                         />
                                     </button>
@@ -141,6 +183,16 @@ const CommonDetail = ({ item }) => {
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className="h-auto w-full mt-10">
+                    <h1 className="max-w-2xl mb-2 text-lg font-extrabold tracking-tight leading-none md:text-2xl xl:text-4xl">
+                        similar Products
+                    </h1>
+                    <HotSaleSlide
+                        listItem={similarProducts}
+                        SlideItem={Product}
+                        numberSlide={4}
+                    />
                 </div>
             </div>
             <Notification />

@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import CartModal from "../CartModal";
 import Notification from "../Notification";
+import { logo } from "@/app/asset";
 
 function NavItems({ isModalView = false, isAdminView, router }) {
     return (
@@ -89,25 +90,23 @@ export default function Navbar() {
                         onClick={() => router.push("/")}
                         className="flex items-center cursor-pointer"
                     >
-                        <span className="slef-center text-2xl font-semibold whitespace-nowrap">
-                            Ecommercery
-                        </span>
+                        <img
+                            alt="logo"
+                            src="https://hstatic.net/744/1000088744/1000124945/logo.png?v=176"
+                            className="w-[100px] object-cover object-center"
+                        />
                     </div>
                     <div className="flex md:order-2 gap-2">
                         {!isAdminView && isAuthUser ? (
                             <Fragment>
                                 <button
-                                    className={
-                                        "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                                    }
+                                    className="button-custom"
                                     onClick={() => router.push("/account")}
                                 >
                                     Account
                                 </button>
                                 <button
-                                    className={
-                                        "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                                    }
+                                    className={"button-custom"}
                                     onClick={() => setShowCartModal(true)}
                                 >
                                     Cart
@@ -117,9 +116,7 @@ export default function Navbar() {
                         {user?.role === "admin" ? (
                             isAdminView ? (
                                 <button
-                                    className={
-                                        "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                                    }
+                                    className="button-custom"
                                     onClick={() => router.push("/")}
                                 >
                                     Client View
@@ -127,9 +124,7 @@ export default function Navbar() {
                             ) : (
                                 <button
                                     onClick={() => router.push("/admin-view")}
-                                    className={
-                                        "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                                    }
+                                    className="button-custom"
                                 >
                                     Admin View
                                 </button>
@@ -138,18 +133,14 @@ export default function Navbar() {
                         {isAuthUser ? (
                             <button
                                 onClick={handleLogout}
-                                className={
-                                    "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                                }
+                                className="button-custom"
                             >
                                 Logout
                             </button>
                         ) : (
                             <button
                                 onClick={() => router.push("/login")}
-                                className={
-                                    "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                                }
+                                className="button-custom"
                             >
                                 Login
                             </button>

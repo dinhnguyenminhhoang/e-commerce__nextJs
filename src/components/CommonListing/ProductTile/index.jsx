@@ -1,17 +1,24 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function ProductTile({ item }) {
+    const [isImage, setIsImage] = useState(true);
     const router = useRouter();
-
     return (
         <div onClick={() => router.push(`/product/${item._id}`)}>
             <div className="overflow-hidden aspect-w-1 aspect-h-1 h-52 group rounded-lg">
                 <img
-                    src={item.imageUrl}
+                    // onMouseMove={() =>
+                    //     setTimeout(() => setIsImage(false), [400])
+                    // }
+                    // onMouseLeave={() =>
+                    //     setTimeout(() => setIsImage(true), [400])
+                    // }
+                    src={isImage ? item.imageUrl : item.thumbnailUrl}
                     alt="Product image"
-                    className="rounded-sm h-full w-full object-cover transition-all duration-500 group-hover:scale-110 cursor-pointer"
+                    className="rounded-sm h-full w-full object-cover object-top transition-all duration-700 group-hover:scale-110 group-hover:object-bottom cursor-pointer"
                 />
             </div>
             {item.onSale === "yes" ? (
