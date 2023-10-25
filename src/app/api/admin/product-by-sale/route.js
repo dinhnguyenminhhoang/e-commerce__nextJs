@@ -7,8 +7,9 @@ export const dynamic = "force-dynamic";
 export async function GET(req) {
     try {
         await connectToDB();
-        const getData = await Product.find({ onSale: "yes" });
-
+        const getData = await Product.find({ onSale: "yes" })
+            .sort({ priceDrop: -1 })
+            .limit(10);
         if (getData) {
             return NextResponse.json({ success: true, data: getData });
         } else {

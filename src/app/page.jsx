@@ -4,27 +4,47 @@ import HotSaleSlide from "@/components/slide";
 import SlidePoster from "@/components/slide/slidePoster";
 import { GlobalContext } from "@/context";
 import { getAllPoster } from "@/service/poster";
-import { getAllAdminProducts, getProductsBySale } from "@/service/product";
+import {
+    getAllAdminProducts,
+    getProductsBySale,
+    productByCategory,
+} from "@/service/product";
 import { zoomImg } from "@/utils/zoomImg";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useRef, useState } from "react";
 import { PulseLoader } from "react-spinners";
-
+import { AiFillHome } from "@react-icons/all-files/Ai/AiFillHome";
 export default function Home() {
     const { isAuthUser, pageLevelLoader, setPageLevelLoader } =
         useContext(GlobalContext);
+    const [isVisible, setIsVisible] = useState(false);
     const [products, setProducts] = useState([]);
     const [productsSale, setProductsSale] = useState([]);
+    const [productsMen, setProductsMen] = useState([]);
+    const [productsWomen, setProductsWomen] = useState([]);
+    const [productsKids, setProductsKids] = useState([]);
     const router = useRouter();
     async function getListOfProducts() {
-        const res = await getAllAdminProducts();
-        const resSale = await getAllPoster();
+        const res = await getProductsBySale();
+        const resPoster = await getAllPoster();
+        const resMen = await productByCategory("men");
+        const resWomen = await productByCategory("women");
+        const resKids = await productByCategory("kids");
         setPageLevelLoader(true);
         if (res.success) {
             setProducts(res.data);
         }
-        if (resSale.success) {
-            setProductsSale(resSale.data);
+        if (resPoster.success) {
+            setProductsSale(resPoster.data);
+        }
+        if (resMen.success) {
+            setProductsMen(resMen.data);
+        }
+        if (resKids.success) {
+            setProductsKids(resKids.data);
+        }
+        if (resWomen.success) {
+            setProductsWomen(resWomen.data);
         }
         setPageLevelLoader(false);
     }
@@ -48,7 +68,7 @@ export default function Home() {
             <div className="h-auto w-full">
                 <HotSaleSlide listItem={productsSale} SlideItem={SlidePoster} />
             </div>
-            <div className="grid max-w-screen-xl px-4  mx-auto  lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+            <div className="grid px-4  mx-auto  lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
                 <div className="mr-auto place-self-center lg:col-span-7">
                     <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">
                         Best Fashion Collection
@@ -76,7 +96,7 @@ export default function Home() {
                 </div>
             </div>
             <div className="h-auto w-full">
-                <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">
+                <h1 className="text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">
                     Best seling
                 </h1>
                 <HotSaleSlide
@@ -85,7 +105,7 @@ export default function Home() {
                     numberSlide={4}
                 />
             </div>
-            <div className="max-w-screen-xl px-4  mx-auto sm:py-12 sm:px-6 lg:px-8">
+            <div className="px-4  mx-auto sm:py-12 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-stretch">
                     <div className="grid p-6 bg-gray-100 rounded place-content-center sm:p-8">
                         <div className="max-w-md mx-auto text-center lg:text-left">
@@ -143,7 +163,63 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
+            <div className="flex flex-col gap-4 h-auto w-full">
+                <div className="h-auto w-full">
+                    <div className="flex items-center justify-between ">
+                        <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight leading-none">
+                            Men's Fashion
+                        </h1>
+                        <button
+                            onClick={() => router.push("/product/listing/men")}
+                            className="border-none underline outline-none font-semibold text-[#4a4a4a] bg-transparent"
+                        >
+                            show all
+                        </button>
+                    </div>
+                    <HotSaleSlide
+                        listItem={productsMen}
+                        SlideItem={Product}
+                        numberSlide={4}
+                    />
+                </div>
+                <div className="h-auto w-full">
+                    <div className="flex items-center justify-between ">
+                        <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight leading-none">
+                            Women's Fashion
+                        </h1>
+                        <button
+                            onClick={() => router.push("/product/listing/men")}
+                            className="border-none underline outline-none font-semibold text-[#4a4a4a] bg-transparent"
+                        >
+                            show all
+                        </button>
+                    </div>
+                    <HotSaleSlide
+                        listItem={productsWomen}
+                        SlideItem={Product}
+                        numberSlide={4}
+                    />
+                </div>
+                <div className="h-auto w-full">
+                    <div className="flex items-center justify-between ">
+                        <h1 className="max-w-2xl text-4xl font-extrabold tracking-tight leading-none ">
+                            kids fashion
+                        </h1>
+                        <button
+                            onClick={() => router.push("/product/listing/men")}
+                            className="border-none underline outline-none font-semibold text-[#4a4a4a] bg-transparent"
+                        >
+                            show all
+                        </button>
+                    </div>
+                    <HotSaleSlide
+                        listItem={productsKids}
+                        SlideItem={Product}
+                        numberSlide={4}
+                    />
+                </div>
+            </div>
+            <div className=" px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
                 <div className="text-center">
                     <h2 className="text-xl font-bold text-gray-950 sm:text-3xl">
                         SHOP BY CATEGORY
@@ -215,6 +291,13 @@ export default function Home() {
                     </li>
                 </ul>
             </div>
+            <div
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="fixed bottom-10 right-10 text-black text-2xl p-4 border cursor-pointer"
+            >
+                <AiFillHome />
+            </div>
+            )
         </div>
     );
 }

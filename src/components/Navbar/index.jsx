@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import CartModal from "../CartModal";
 import Notification from "../Notification";
-import { logo } from "@/app/asset";
+import { BsSearch } from "@react-icons/all-files/bs/BsSearch";
 
 function NavItems({ isModalView = false, isAdminView, router }) {
     return (
@@ -85,7 +85,7 @@ export default function Navbar() {
     return (
         <>
             <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="container gap-6 flex flex-wrap items-center justify-between mx-auto p-4">
                     <div
                         onClick={() => router.push("/")}
                         className="flex items-center cursor-pointer"
@@ -96,6 +96,7 @@ export default function Navbar() {
                             className="w-[100px] object-cover object-center"
                         />
                     </div>
+
                     <div className="flex md:order-2 gap-2">
                         {!isAdminView && isAuthUser ? (
                             <Fragment>
@@ -169,7 +170,19 @@ export default function Navbar() {
                             </svg>
                         </button>
                     </div>
-                    <NavItems router={router} isAdminView={isAdminView} />
+                    <div className="w-full flex-1 flex justify-center items-center">
+                        <NavItems router={router} isAdminView={isAdminView} />
+                        <div className="max-w-[500px] min-w-[350px] flex items-center ml-6">
+                            <button className="px-4 h-[46px] border-y border-l rounded-l-full border-[#444] border-opacity-30">
+                                <BsSearch />
+                            </button>
+                            <input
+                                type="text"
+                                placeholder="search"
+                                className="border rounded-r-full outline-none px-4 h-[46px]  w-full border-[#444] border-opacity-30"
+                            />
+                        </div>
+                    </div>
                 </div>
             </nav>
             <CommonModal

@@ -61,6 +61,7 @@ const initialFormData = {
     description: "",
     category: "men",
     sizes: [],
+    type: "shirt",
     deliveryInfo: "",
     onSale: "no",
     imageUrl: "",

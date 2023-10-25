@@ -8,7 +8,7 @@ const Product = ({ data }) => {
         <div className="relative el-wrapper py-1 m-2 mx-auto bg-white shadow">
             <div
                 onClick={() => router.push(`/product/${data._id}`)}
-                className="w-full h-full relative overflow-hidden text-center cursor-pointer"
+                className="w-full h-full relative  overflow-hidden text-center cursor-pointer"
             >
                 <img className="img" src={data.imageUrl} alt="" />
                 <div className="img-info">
@@ -17,7 +17,7 @@ const Product = ({ data }) => {
                         <span className="p-company">Yeezy</span>
                     </div>
                     <div className="a-size">
-                        Available sizes:{" "}
+                        Available sizes:
                         {data.sizes.map((size) => size.label).join(" - ")}
                     </div>
                 </div>

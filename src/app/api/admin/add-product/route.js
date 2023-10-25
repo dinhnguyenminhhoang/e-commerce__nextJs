@@ -9,6 +9,7 @@ const AddnNewProductSchema = Joi.object({
     description: Joi.string().required(),
     price: Joi.number().required(),
     category: Joi.string().required(),
+    type: Joi.string().required(),
     sizes: Joi.array().required(),
     deliveryInfo: Joi.string().required(),
     onSale: Joi.string().required(),
@@ -28,27 +29,29 @@ export async function POST(req) {
                 name,
                 description,
                 price,
-                imageUrl,
                 category,
+                type,
                 sizes,
                 deliveryInfo,
                 onSale,
                 priceDrop,
+                imageUrl,
                 thumbnailUrl,
             } = extracData;
-            console.log(extracData);
             const { err } = AddnNewProductSchema.validate({
                 name,
                 description,
                 price,
-                imageUrl,
                 category,
+                type,
                 sizes,
                 deliveryInfo,
                 onSale,
                 priceDrop,
+                imageUrl,
                 thumbnailUrl,
             });
+
             if (err) {
                 return NextResponse.json({
                     success: false,

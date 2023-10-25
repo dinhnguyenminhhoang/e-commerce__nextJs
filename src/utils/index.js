@@ -1,15 +1,5 @@
 export const navOptions = [
     {
-        id: "home",
-        label: "Home",
-        path: "/",
-    },
-    {
-        id: "listing",
-        label: "All Products",
-        path: "/product/listing/all-products",
-    },
-    {
         id: "listingMen",
         label: "Men",
         path: "/product/listing/men",
@@ -147,6 +137,27 @@ export const adminAddProductformControls = [
             {
                 id: "kids",
                 label: "Kids",
+            },
+        ],
+    },
+    {
+        id: "type",
+        type: "",
+        placeholder: "",
+        label: "type",
+        componentType: "select",
+        options: [
+            {
+                id: "shirt",
+                label: "shirt",
+            },
+            {
+                id: "trousers",
+                label: "trousers",
+            },
+            {
+                id: "accessory",
+                label: "accessory",
             },
         ],
     },
