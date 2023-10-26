@@ -50,9 +50,9 @@ const CommonDetail = ({ item }) => {
         }
     };
     return (
-        <section className="mx-auto max-w-screen-xl sm:px-6 lg:px-8">
+        <section className="mx-auto sm:px-6 lg:px-8">
             <div className="container mx-auto">
-                <div className="lg:col-gap-12 xl:col-gap-16 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
+                <div className="lg:col-gap-12 xl:col-gap-16 grid grid-cols-1 gap-12 pt-4 lg:grid-cols-5 lg:gap-16 border-b">
                     <div className="lg:col-span-3 lg:row-end-1">
                         <div className="lg:flex lg:items-start">
                             <div className="lg:order-2 lg:ml-5">
@@ -117,7 +117,7 @@ const CommonDetail = ({ item }) => {
                         <h1 className="text-2xl font-bold text-gray-900">
                             {item?.name}
                         </h1>
-                        <div className="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-0 py-4 sm:flex-row sm:space-y-0">
+                        <div className=" mt-2 flex flex-col items-center justify-between space-y-2 border-t border-0 py-4 sm:flex-row sm:space-y-0">
                             <div className="flex gap-4 items-end">
                                 <p
                                     className={`text-3xl font-bold ${

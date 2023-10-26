@@ -61,6 +61,7 @@ const initialFormData = {
     description: "",
     category: "men",
     sizes: [],
+    colors: [],
     type: "shirt",
     deliveryInfo: "",
     onSale: "no",
@@ -117,6 +118,31 @@ const AdminAddNewProduct = () => {
         }
         setFormData({ ...formData, sizes: copySizes });
     };
+    const AvailableColors = [
+        {
+            id: "#fff",
+            label: " #fff",
+        },
+        {
+            id: "#000",
+            label: "#000",
+        },
+    ];
+    const handleColor = (getCurrentitem) => {
+        let copyColors = [...formData.colors];
+        const index = copyColors.findIndex(
+            (item) => item.id === getCurrentitem.id
+        );
+        if (index === -1) {
+            copyColors.push(getCurrentitem);
+        } else {
+            copyColors = copyColors.filter(
+                (item) => item.id !== getCurrentitem.id
+            );
+        }
+        setFormData({ ...formData, sizes: copyColors });
+    };
+    const handleAddMore = () => {};
     const handleAddProduct = async () => {
         setComponentLevelLoader({ loading: true, id: "" });
 
@@ -224,6 +250,17 @@ const AdminAddNewProduct = () => {
                             onClick={handleTileClick}
                             data={AvailableSizes}
                         />
+                    </div>
+                    <div className="flex gap-2 flex-col">
+                        <lable>Colors</lable>
+                        <div className="flex gap-4 items-center">
+                            <TileComponent
+                                selected={formData.sizes}
+                                onClick={handleTileClick}
+                                data={AvailableColors}
+                                handleAddMore={handleAddMore}
+                            />
+                        </div>
                     </div>
                     {adminAddProductformControls.map((controlItem) =>
                         controlItem.componentType === "input" ? (

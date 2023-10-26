@@ -1,9 +1,9 @@
 "use client";
 import { Fragment, useContext, useEffect } from "react";
-import CommonModal from "../CommonModal";
+import CommonModal from "../../CommonModal";
 import { GlobalContext } from "@/context";
 import { deleteFromCart, getAllCartItems } from "@/service/cart";
-import ComponentLevelLoader from "../Loader/componentlevel";
+import ComponentLevelLoader from "../../Loader/componentlevel";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 

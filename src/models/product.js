@@ -8,11 +8,13 @@ const ProductSchema = new mongoose.Schema(
         category: String,
         type: String,
         sizes: Array,
+        colors: Array,
         deliveryInfo: String,
         onSale: String,
         priceDrop: Number,
         imageUrl: String,
         thumbnailUrl: String,
+        rate: String,
     },
     { timestamps: true }
 );

@@ -1,4 +1,4 @@
-const TileComponent = ({ data, selected = [], onClick }) => {
+const TileComponent = ({ data, selected = [], onClick, handleAddMore }) => {
     return data && data.length ? (
         <div className="mt-3 flex flex-wrap items-center gap-1">
             {data.map((dataItems) => (
@@ -28,6 +28,14 @@ const TileComponent = ({ data, selected = [], onClick }) => {
                     </span>
                 </label>
             ))}
+            {handleAddMore && (
+                <button
+                    className="rounded-lg border border-black px-6 py-2 font-bold"
+                    onClick={handleAddMore}
+                >
+                    more
+                </button>
+            )}
         </div>
     ) : null;
 };

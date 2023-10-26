@@ -2,13 +2,16 @@
 
 import { GlobalContext } from "@/context";
 import { adminNavOptions, navOptions } from "@/utils";
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import CommonModal from "../CommonModal";
 import Cookies from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
-import CartModal from "../CartModal";
+import CartModal from "../Modal/CartModal";
 import Notification from "../Notification";
 import { BsSearch } from "@react-icons/all-files/bs/BsSearch";
+import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
+import { AiOutlineLoading3Quarters } from "@react-icons/all-files/ai/AiOutlineLoading3Quarters";
+import SearchModal from "../Modal/SearchModal/SearchModal";
 
 function NavItems({ isModalView = false, isAdminView, router }) {
     return (
@@ -60,10 +63,10 @@ export default function Navbar() {
         showNavModal,
         setShowNavModal,
     } = useContext(GlobalContext);
-
+    const [inputValue, setInputValue] = useState("");
     const pathName = usePathname();
     const router = useRouter();
-
+    const [searchLoading, setSearchLoading] = useState(false);
     useEffect(() => {
         if (
             pathName !== "/admin-view/add-product" &&
@@ -81,11 +84,16 @@ export default function Navbar() {
     }
 
     const isAdminView = pathName.includes("admin-view");
-
+    const handleSearchLoading = (isLoading) => {
+        setSearchLoading(isLoading);
+    };
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value);
+    };
     return (
         <>
-            <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
-                <div className="container gap-6 flex flex-wrap items-center justify-between mx-auto p-4">
+            <nav className="bg-white  fixed w-full z-20 top-0 left-0 border-b border-gray-200">
+                <div className="container gap-6 flex flex-wrap items-center justify-between mx-auto px-20 py-2 border-b">
                     <div
                         onClick={() => router.push("/")}
                         className="flex items-center cursor-pointer"
@@ -172,14 +180,40 @@ export default function Navbar() {
                     </div>
                     <div className="w-full flex-1 flex justify-center items-center">
                         <NavItems router={router} isAdminView={isAdminView} />
-                        <div className="max-w-[500px] min-w-[350px] flex items-center ml-6">
+                        <div
+                            onMouseLeave={() => setInputValue("")}
+                            className="relative z-10 max-w-[500px] min-w-[400px] flex items-center ml-6"
+                        >
                             <button className="px-4 h-[46px] border-y border-l rounded-l-full border-[#444] border-opacity-30">
                                 <BsSearch />
                             </button>
                             <input
+                                value={inputValue}
+                                onChange={handleInputChange}
                                 type="text"
                                 placeholder="search"
                                 className="border rounded-r-full outline-none px-4 h-[46px]  w-full border-[#444] border-opacity-30"
+                            />
+                            <div className="absolute right-5 top-1/2 -translate-y-1/2 ">
+                                {inputValue ? (
+                                    searchLoading ? (
+                                        <div className="animate-spin">
+                                            <AiOutlineLoading3Quarters className="text-blue-500 text-xl" />
+                                        </div>
+                                    ) : (
+                                        <div
+                                            onClick={() => {
+                                                setInputValue("");
+                                            }}
+                                        >
+                                            <AiOutlineClose className="text-red-500 text-xl cursor-pointer" />
+                                        </div>
+                                    )
+                                ) : null}
+                            </div>
+                            <SearchModal
+                                value={inputValue}
+                                handleSearchLoading={handleSearchLoading}
                             />
                         </div>
                     </div>

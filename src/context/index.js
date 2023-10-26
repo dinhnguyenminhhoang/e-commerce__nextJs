@@ -68,7 +68,6 @@ export default function GlobalState({ children }) {
             setUser({}); //unauthenticated user
         }
     }, [Cookies]);
-
     useEffect(() => {
         if (
             pathName !== "/register" &&

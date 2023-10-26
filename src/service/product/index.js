@@ -121,3 +121,20 @@ export const productById = async (id) => {
         console.log(e);
     }
 };
+export const searchProduct = async (id) => {
+    try {
+        const res = await fetch(
+            `http://localhost:3000/api/admin/search-product?id=${id}`,
+            {
+                method: "GET",
+                cache: "no-store",
+            }
+        );
+
+        const data = await res.json();
+
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
