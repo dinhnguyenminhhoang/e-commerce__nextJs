@@ -11,6 +11,13 @@ const CommentSchema = new mongoose.Schema(
             ref: "Products",
         },
         comment: String,
+        replies: [
+            {
+                commentID: String,
+                commentReply: String,
+                userID: String,
+            },
+        ],
     },
     { timestamps: true }
 );
