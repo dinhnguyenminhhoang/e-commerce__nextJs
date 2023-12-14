@@ -8,9 +8,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
     title: "Fashion shop",
     description: "Fashion shop",
-    openGraph: {
-        images: "https://hstatic.net/744/1000088744/1000124945/logo.png?v=176",
-    },
 };
 
 export default function RootLayout({ children }) {

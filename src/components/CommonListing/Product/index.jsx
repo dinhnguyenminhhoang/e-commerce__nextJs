@@ -2,23 +2,27 @@ import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 import ProductButtons from "../ProductButtons";
 import "./style.css";
+import Animate from "@/components/Loader/Animate/Animate";
 const Product = ({ data }) => {
     const router = useRouter();
+    if (!data) return <Animate />;
     return (
-        <div className="relative el-wrapper py-1 m-2 mx-auto bg-white shadow">
+        <div
+            className={`relative el-wrapper border pt-1  mx-auto bg-white w-[275px]`}
+        >
             <div
-                onClick={() => router.push(`/product/${data._id}`)}
-                className="w-full h-full relative  overflow-hidden text-center cursor-pointer"
+                onClick={() => router.push(`/product/${data?._id}`)}
+                className="w-full relative  overflow-hidden text-center cursor-pointer"
             >
-                <img className="img" src={data.imageUrl} alt="" />
+                <img className="img" src={data?.imageUrl} alt="" />
                 <div className="img-info">
                     <div className="info-inner">
-                        <span className="p-name">{data.name}</span>
+                        <span className="p-name">{data?.name}</span>
                         <span className="p-company">Yeezy</span>
                     </div>
                     <div className="a-size">
                         Available sizes:
-                        {data.sizes.map((size) => size.label).join(" - ")}
+                        {data?.sizes.map((size) => size.label).join(" - ")}
                     </div>
                 </div>
             </div>

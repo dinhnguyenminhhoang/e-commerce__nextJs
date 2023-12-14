@@ -273,3 +273,36 @@ export const addNewAddressFormControls = [
         componentType: "input",
     },
 ];
+export const MenuSidebar = [
+    {
+        id: 1,
+        label: "Thời Trang Nam",
+        link: "/product/listing/men",
+    },
+    {
+        id: 2,
+        label: "Thời Trang Nữ",
+        link: "/product/listing/women",
+    },
+    {
+        id: 3,
+        label: "Thời Trang Hè",
+    },
+    {
+        id: 4,
+        label: "Mẹ Và Bé",
+        link: "/product/listing/kids",
+    },
+    {
+        id: 5,
+        label: "Sản Phẩm Bán Chạy",
+    },
+    {
+        id: 6,
+        label: "Sản Phẩm Mới",
+    },
+    {
+        id: 7,
+        label: "Sản Phẩm Khuyến Mãi",
+    },
+];

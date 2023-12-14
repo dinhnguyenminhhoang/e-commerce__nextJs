@@ -92,6 +92,7 @@ const Comment = () => {
             getListComment();
         }
     };
+    console.log(listComment);
     return (
         <div className="flex flex-col gap-4 bg-slate-100 p-4 mt-6 rounded-sm">
             <CommentInput
@@ -265,7 +266,7 @@ const Comment = () => {
                                                                       </div>
                                                                       <div className="flex-1 items-start text-start">
                                                                           <div
-                                                                              class="relative mb-3"
+                                                                              className="relative mb-3"
                                                                               data-te-input-wrapper-init
                                                                           >
                                                                               <input
@@ -288,7 +289,7 @@ const Comment = () => {
                                                                               />
                                                                               <label
                                                                                   for="search-input"
-                                                                                  className=" text-black pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:bg-white peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-blue-400"
+                                                                                  className="text-black pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:bg-white peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-blue-400"
                                                                               >
                                                                                   reply
                                                                                   comment
@@ -335,7 +336,7 @@ const Comment = () => {
                                             </div>
                                             <div className="flex-1 items-start text-start">
                                                 <div
-                                                    class="relative mb-3"
+                                                    className="relative mb-3"
                                                     data-te-input-wrapper-init
                                                 >
                                                     <input
@@ -352,7 +353,7 @@ const Comment = () => {
                                                     />
                                                     <label
                                                         for="search-input"
-                                                        className=" text-black pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:bg-white peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-blue-400"
+                                                        className="text-black pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:bg-white peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-blue-400"
                                                     >
                                                         reply comment
                                                     </label>

@@ -84,7 +84,7 @@ const Footer = () => {
     ];
     return (
         <div className="shadow-custom mt-10 pb-10 hidden md:block border-t">
-            <div className="md:container md:mx-auto mx-4 sm:mx-8 xl:w-3/4 flex justify-between items-start py-2 gap-4  ">
+            <div className="md:container md:mx-auto mx-4 sm:mx-8 xl:w-3/4 flex justify-between items-start py-2 gap-4">
                 {dataItem?.length > 0 &&
                     dataItem.map((item, index) => (
                         <FooterItem

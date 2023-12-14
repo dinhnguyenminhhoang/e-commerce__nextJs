@@ -8,9 +8,28 @@ export async function GET(req) {
     try {
         await connectToDB();
         const { searchParams } = new URL(req.url);
-        const id = searchParams.get("id");
-        const limit = searchParams.get("limit");
-        const getData = await Product.find({ category: id }).limit(limit);
+        const type = searchParams.get("type");
+        const sortPrice = searchParams.get("sortPrice");
+        const category = searchParams.get("category");
+        const search = searchParams.get("search");
+
+        let order = {};
+        if (type === "ALL") {
+            order = {
+                category: category,
+            };
+        } else {
+            order = {
+                type: type,
+                category: category,
+            };
+        }
+        if (search !== "") {
+            order = { ...order, name: { $regex: search, $options: "i" } };
+        }
+        const getData = await Product.find(order).sort({
+            price: sortPrice,
+        });
         if (getData) {
             return NextResponse.json({
                 success: true,

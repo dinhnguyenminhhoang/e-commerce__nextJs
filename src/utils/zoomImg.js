@@ -1,5 +1,4 @@
 export const zoomImg = (imgRef, scop = 2, mirrorRef) => {
-    console.log("hih");
     if (imgRef && mirrorRef) {
         imgRef.onmousemove = function (e) {
             mirrorRef.style.display = "block";

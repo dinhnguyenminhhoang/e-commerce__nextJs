@@ -118,7 +118,7 @@ export default function Orders() {
                                                                 `/orders/${item._id}`
                                                             )
                                                         }
-                                                        className=" mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+                                                        className="mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
                                                     >
                                                         View Order Details
                                                     </button>

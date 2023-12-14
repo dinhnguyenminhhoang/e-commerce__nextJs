@@ -14,7 +14,8 @@ import { addNewAddressFormControls } from "@/utils";
 import { useContext, useEffect, useState } from "react";
 import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
-
+import { BiUserPin } from "react-icons/bi";
+import { AiOutlineEdit, AiOutlineInfoCircle } from "react-icons/ai";
 const Account = () => {
     const {
         user,
@@ -143,6 +144,35 @@ const Account = () => {
     }
     return (
         <section>
+            <div className="flex flex-col gap-4">
+                <div className="w-full items-center flex flex-col gap-2 justify-center border-b p-4">
+                    <BiUserPin size={40} />
+                    <h1 className="text-slate-800 font-bold text-xl">
+                        xin chào {user?.name}
+                    </h1>
+                </div>
+                <div className="grid grid-cols-3 space-x-2">
+                    <div className="col-span-1 shadow-md border p-4 rounded-md flex flex-col gap-2 items-center">
+                        <AiOutlineInfoCircle size={30} className="mx-auto" />
+                        <div className="flex gap-2 items-center cursor-pointer">
+                            <span className="uppercase text-lg font-medium">
+                                thông tin tài khoản
+                            </span>
+                            <AiOutlineEdit size={16} />
+                        </div>
+                        <div className="text-lg font-medium pl-4 text-slate-600">
+                            <ul className="flex gap-2">
+                                <li className="border-r pr-2">{user.name}</li>
+                                <li>{user.email}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="col-span-2 shadow-md border flex gap-2">
+                        <div className="w-1/2 border-r"></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
             <div className="mx-auto bg-gray-100 px-4 sm:px-6 lg:px-8">
                 <div className="bg-white shadow">
                     <div className="p-6 sm:p-12">

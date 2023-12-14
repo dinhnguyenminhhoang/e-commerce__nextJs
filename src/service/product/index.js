@@ -17,10 +17,11 @@ export const addNewProduct = async (formData) => {
         console.log(error);
     }
 };
-export const getAllAdminProducts = async () => {
+export const getAllAdminProducts = async (limit) => {
     try {
+        if (!limit) limit = 10;
         const res = await fetch(
-            "http://localhost:3000/api/admin/all-products",
+            `http://localhost:3000/api/admin/all-products?limit=${limit}`,
             {
                 method: "GET",
                 cache: "no-store",
@@ -43,7 +44,6 @@ export const getProductsBySale = async () => {
                 cache: "no-store",
             }
         );
-
         const data = await res.json();
 
         return data;
@@ -87,10 +87,11 @@ export const deleteAProduct = async (id) => {
         console.log(e);
     }
 };
-export const productByCategory = async (id) => {
+export const productByCategory = async (id, limit) => {
     try {
+        if (!limit) limit = 10;
         const res = await fetch(
-            `http://localhost:3000/api/admin/product-by-category?id=${id}`,
+            `http://localhost:3000/api/admin/product-by-category?id=${id}&limit=${limit}`,
             {
                 method: "GET",
                 cache: "no-store",
@@ -125,6 +126,42 @@ export const searchProduct = async (id) => {
     try {
         const res = await fetch(
             `http://localhost:3000/api/admin/search-product?id=${id}`,
+            {
+                method: "GET",
+                cache: "no-store",
+            }
+        );
+
+        const data = await res.json();
+
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+export const rateProduct = async (formData) => {
+    try {
+        const res = await fetch("/api/admin/rate-product", {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `Bearer ${Cookies.get("token")}`,
+            },
+            cache: "no-store",
+            body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+
+        return data;
+    } catch (e) {
+        console.log(e);
+    }
+};
+export const productByFilter = async (formData) => {
+    try {
+        const res = await fetch(
+            `http://localhost:3000/api/admin/product-by-filter?type=${formData.type}&sortPrice=${formData.sortPrice}&category=${formData.category}&search=${formData.search}`,
             {
                 method: "GET",
                 cache: "no-store",

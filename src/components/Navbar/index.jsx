@@ -1,5 +1,4 @@
 "use client";
-
 import { GlobalContext } from "@/context";
 import { adminNavOptions, navOptions } from "@/utils";
 import { Fragment, useContext, useEffect, useState } from "react";
@@ -12,6 +11,7 @@ import { BsSearch } from "@react-icons/all-files/bs/BsSearch";
 import { AiOutlineClose } from "@react-icons/all-files/ai/AiOutlineClose";
 import { AiOutlineLoading3Quarters } from "@react-icons/all-files/ai/AiOutlineLoading3Quarters";
 import SearchModal from "../Modal/SearchModal/SearchModal";
+import { AiOutlineMenu } from "react-icons/ai";
 
 function NavItems({ isModalView = false, isAdminView, router }) {
     return (
@@ -22,7 +22,7 @@ function NavItems({ isModalView = false, isAdminView, router }) {
             id="nav-items"
         >
             <ul
-                className={`flex flex-col p-4 md:p-0 mt-4 font-medium  rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white ${
+                className={`flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-white ${
                     isModalView ? "border-none" : "border border-gray-100"
                 }`}
             >
@@ -36,15 +36,7 @@ function NavItems({ isModalView = false, isAdminView, router }) {
                               {item.label}
                           </li>
                       ))
-                    : navOptions.map((item) => (
-                          <li
-                              className="cursor-pointer block py-2 pl-3 pr-4 text-gray-900 rounded md:p-0"
-                              key={item.id}
-                              onClick={() => router.push(item.path)}
-                          >
-                              {item.label}
-                          </li>
-                      ))}
+                    : null}
             </ul>
         </div>
     );
@@ -92,7 +84,7 @@ export default function Navbar() {
     };
     return (
         <>
-            <nav className="bg-white  fixed w-full z-20 top-0 left-0 border-b border-gray-200">
+            <nav className="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200">
                 <div className="container gap-6 flex flex-wrap items-center justify-between mx-auto px-20 py-2 border-b">
                     <div
                         onClick={() => router.push("/")}
@@ -163,19 +155,7 @@ export default function Navbar() {
                             onClick={() => setShowNavModal(true)}
                         >
                             <span className="sr-only">Open main menu</span>
-                            <svg
-                                className="w-6 h-6"
-                                aria-hidden="true"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
+                            <AiOutlineMenu className="w-6 h-6" />
                         </button>
                     </div>
                     <div className="w-full flex-1 flex justify-center items-center">
@@ -192,9 +172,9 @@ export default function Navbar() {
                                 onChange={handleInputChange}
                                 type="text"
                                 placeholder="search"
-                                className="border rounded-r-full outline-none px-4 h-[46px]  w-full border-[#444] border-opacity-30"
+                                className="border rounded-r-full outline-none px-4 h-[46px] w-full border-[#444] border-opacity-30"
                             />
-                            <div className="absolute right-5 top-1/2 -translate-y-1/2 ">
+                            <div className="absolute right-5 top-1/2 -translate-y-1/2">
                                 {inputValue ? (
                                     searchLoading ? (
                                         <div className="animate-spin">

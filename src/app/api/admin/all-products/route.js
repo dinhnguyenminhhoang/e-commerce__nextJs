@@ -7,8 +7,9 @@ export const dynamic = "force-dynamic";
 export async function GET(req) {
     try {
         await connectToDB();
-
-        const extractAllproducts = await Product.find({});
+        const { searchParams } = new URL(req.url);
+        const limit = searchParams.get("limit");
+        const extractAllproducts = await Product.find({}).limit(limit);
 
         if (extractAllproducts) {
             return NextResponse.json({

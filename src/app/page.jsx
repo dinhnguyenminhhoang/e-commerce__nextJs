@@ -1,7 +1,7 @@
 "use client";
 import Product from "@/components/CommonListing/Product";
-import HotSaleSlide from "@/components/slide";
-import SlidePoster from "@/components/slide/slidePoster";
+import HotSaleSlide from "@/components/Slide";
+import SlidePoster from "@/components/Slide/slidePoster";
 import { GlobalContext } from "@/context";
 import { getAllPoster } from "@/service/poster";
 import {
@@ -219,7 +219,7 @@ export default function Home() {
                     />
                 </div>
             </div>
-            <div className=" px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
+            <div className="px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
                 <div className="text-center">
                     <h2 className="text-xl font-bold text-gray-950 sm:text-3xl">
                         SHOP BY CATEGORY
@@ -229,7 +229,7 @@ export default function Home() {
                     <li>
                         <div className="relative block group">
                             <img
-                                src="https://images.unsplash.com/photo-1618898909019-010e4e234c55?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                src="https://i.pinimg.com/564x/88/fb/e0/88fbe056c2ed4f126005db7b81ab40dc.jpg"
                                 className="object-cover w-full aspect-square"
                             />
                             <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
@@ -250,7 +250,7 @@ export default function Home() {
                     <li>
                         <div className="relative block group">
                             <img
-                                src="https://images.unsplash.com/photo-1624623278313-a930126a11c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+                                src="https://i.pinimg.com/564x/fe/b2/bd/feb2bd4ab7756b3ad861e84f50af9ca4.jpg"
                                 className="object-cover w-full aspect-square"
                             />
                             <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
@@ -271,7 +271,7 @@ export default function Home() {
                     <li className="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1">
                         <div className="relative block group">
                             <img
-                                src="https://images.unsplash.com/photo-1593795899768-947c4929449d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80"
+                                src="https://i.pinimg.com/564x/39/fa/7b/39fa7b4c4d07dbecf0ca4a7040e7c446.jpg"
                                 className="object-cover w-full aspect-square"
                             />
                             <div className="absolute inset-0 flex flex-col items-start justify-end p-6">
@@ -297,7 +297,6 @@ export default function Home() {
             >
                 <AiFillHome />
             </div>
-            )
         </div>
     );
 }

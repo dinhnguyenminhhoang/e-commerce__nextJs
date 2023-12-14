@@ -1,14 +1,15 @@
 "use client";
 
-import { GlobalContext } from "@/context";
-import { addToCart } from "@/service/cart";
 import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { AiFillStar } from "@react-icons/all-files/ai/AiFillStar";
+import { GlobalContext } from "@/context";
+import { addToCart } from "@/service/cart";
 import ComponentLevelLoader from "../Loader/componentlevel";
 import Notification from "../Notification";
 import { zoomImg } from "@/utils/zoomImg";
 import { productByCategory } from "@/service/product";
-import HotSaleSlide from "../slide";
+import HotSaleSlide from "../Slide";
 import Product from "../CommonListing/Product";
 
 const CommonDetail = ({ item }) => {
@@ -49,6 +50,7 @@ const CommonDetail = ({ item }) => {
             setShowCartModal(true);
         }
     };
+    console.log(item);
     return (
         <section className="mx-auto sm:px-6 lg:px-8">
             <div className="container mx-auto">
@@ -117,7 +119,7 @@ const CommonDetail = ({ item }) => {
                         <h1 className="text-2xl font-bold text-gray-900">
                             {item?.name}
                         </h1>
-                        <div className=" mt-2 flex flex-col items-center justify-between space-y-2 border-t border-0 py-4 sm:flex-row sm:space-y-0">
+                        <div className="mt-2 flex flex-col items-center justify-between space-y-2 border-t border-0 py-4 sm:flex-row sm:space-y-0">
                             <div className="flex gap-4 items-end">
                                 <p
                                     className={`text-3xl font-bold ${
@@ -162,6 +164,27 @@ const CommonDetail = ({ item }) => {
                         <ul className="mt-8 space-y-2 flex flex-col gap-2 mb-8">
                             <li className="flex items-center text-left text-sm font-medium text-gray-600">
                                 {`delivery: ${item?.deliveryInfo}`}
+                            </li>
+                            <li className="flex gap-2 items-center text-yellow-500 text-xl">
+                                {!item?.rate && (
+                                    <div>
+                                        <button>
+                                            <AiFillStar />
+                                        </button>
+                                        <button>
+                                            <AiFillStar />
+                                        </button>
+                                        <button>
+                                            <AiFillStar />
+                                        </button>
+                                        <button>
+                                            <AiFillStar />
+                                        </button>
+                                        <button>
+                                            <AiFillStar />
+                                        </button>
+                                    </div>
+                                )}
                             </li>
                             <li className="flex items-center text-left text-sm font-medium text-gray-600">
                                 {`cancel anytime`}
