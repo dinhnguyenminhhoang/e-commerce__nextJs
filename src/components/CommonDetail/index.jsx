@@ -9,8 +9,8 @@ import ComponentLevelLoader from "../Loader/componentlevel";
 import Notification from "../Notification";
 import { zoomImg } from "@/utils/zoomImg";
 import { productByCategory } from "@/service/product";
-import HotSaleSlide from "../Slide";
 import Product from "../CommonListing/Product";
+import HotSaleSlide from "../Slide";
 
 const CommonDetail = ({ item }) => {
     const {

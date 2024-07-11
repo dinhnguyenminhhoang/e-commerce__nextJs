@@ -12,8 +12,8 @@ import {
 import { zoomImg } from "@/utils/zoomImg";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useRef, useState } from "react";
+import { AiFillHome } from "react-icons/ai";
 import { PulseLoader } from "react-spinners";
-import { AiFillHome } from "@react-icons/all-files/Ai/AiFillHome";
 export default function Home() {
     const { isAuthUser, pageLevelLoader, setPageLevelLoader } =
         useContext(GlobalContext);
